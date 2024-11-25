@@ -25,32 +25,22 @@ namespace AplicacionTestMVC.Controllers
 
             List<TipoAnimal> listaTipoAnimal = dal.GetAll();
 
-            List<DetailAnimalViewModel> listaAnimales = listaTipoAnimal
-            .GroupBy(x => new { x.IdTipoAnimal})
-            .Where(g => g.Count() > 1)
-            .Select(g =>
+            CreateAnimalViewModel model = new CreateAnimalViewModel
             {
-                // Creamos la instancia de DetailAnimalViewModel
-                var detalle = new DetailAnimalViewModel();
+                AnimalTypes = listaTipoAnimal
+                    .DistinctBy(x => x.IdTipoAnimal)
+                    .ToList()
+            };
 
-                // Asignamos valores al objeto Animal dentro de AnimalDetail
-                detalle.AnimalDetail.TipoDeAnimal = dal.GetById(g.Key.IdTipoAnimal);
-
-                return detalle;
-            })
-            .ToList();
-
-            return View(listaTipoAnimal);
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult InsertCreateAnimal(DetailAnimalViewModel animalToCreate)
+        public IActionResult InsertCreateAnimal(CreateAnimalViewModel animalToCreate)
         {
             AnimalDAL dal = new AnimalDAL();
-            DetailAnimalViewModel animalDetail = new DetailAnimalViewModel
-            {
-                AnimalDetail = animalToCreate.AnimalDetail
-            };
+
+            dal.Insert(animalToCreate.CreatedAnimal);
 
             return RedirectToAction("Index", "Home");
         }

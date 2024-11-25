@@ -1,18 +1,38 @@
 ﻿@using AplicacionTestMVC.Models.ViewModels
-@model DetailAnimalViewModel
+@model CreateAnimalViewModel
 
 <div class="text-center">
     <h2>Crear nuevo animal:</h2>
-    <form asp-controller="Animal" asp-action="CreateAnimal" method="post">
-        <input type="text" name="NombreAnimal" value="@Model.AnimalDetail.NombreAnimal" />
-        <input type="text" name="Raza" value="@Model.AnimalDetail.Raza" />
-        <input type="date" name="FechaNacimiento" value="@Model.AnimalDetail.FechaNacimiento" />
-        <label for="AnimalDetail.TipoDeAnimal">Selecciona un tipo de animal:</label>
-        <select asp-for="AnimalDetail.RIdTipoAnimal" class="form-control" asp-items="@(new SelectList(Model.AnimalDetail.NombreAnimal, "TipoDescripcion"))">
-            <option value="">-- Selecciona un tipo de animal --</option>
-        </select>
-        <button type="submit" class="btn btn-primary">Detalles</button>
+    <form asp-controller="Animal" asp-action="InsertCreateAnimal" method="post">
+        <div class="form-group">
+            <label asp-for="CreatedAnimal.NombreAnimal" class="form-label">Nombre animal:</label>
+            <input asp-for="CreatedAnimal.NombreAnimal" class="form-control" />
+            <span asp-validation-for="CreatedAnimal.NombreAnimal" class="text-danger"></span>
+        </div>
 
+        <div class="form-group">
+            <label asp-for="CreatedAnimal.Raza" class="form-label">Nombre raza:</label>
+            <input asp-for="CreatedAnimal.Raza" class="form-control" />
+            <span asp-validation-for="CreatedAnimal.Raza" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CreatedAnimal.FechaNacimiento" class="form-label">Fecha nacimiento:</label>
+            <input asp-for="CreatedAnimal.FechaNacimiento" type="date" class="form-control" />
+            <span asp-validation-for="CreatedAnimal.FechaNacimiento" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CreatedAnimal.RIdTipoAnimal" class="form-label">Selecciona un tipo de animal:</label>
+            <select asp-for="CreatedAnimal.RIdTipoAnimal" class="form-control" asp-items="@(new SelectList(Model.AnimalTypes, "IdTipoAnimal", "TipoDescripcion"))">
+                <option value="">Seleccione un tipo</option>
+            </select>
+            <span asp-validation-for="CreatedAnimal.RIdTipoAnimal" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Crear</button>
+        </div>
     </form>
 
     <a href="@Url.Action("Index", "Home")">Volver a la lista</a>
