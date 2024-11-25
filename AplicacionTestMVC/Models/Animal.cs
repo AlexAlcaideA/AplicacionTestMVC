@@ -9,6 +9,6 @@
         public DateTime? FechaNacimiento { get; set; }
 
         //Navegacion entre TipoAnimal
-        public TipoAnimal TipoDeAnimal { get; set; }
+        public TipoAnimal TipoDeAnimal { get; set; } = new TipoAnimal();
     }
 }

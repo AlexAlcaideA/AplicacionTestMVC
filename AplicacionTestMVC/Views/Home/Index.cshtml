@@ -11,9 +11,16 @@
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     <h1>Lista de Animales</h1>
     <ul>
-        <!--@for (int i = 0; i < Model.Animales.Count; i++)
+        @foreach (Animal a in Model.Animales)
         {
-            <li><span class="animal-id">ID: @(i + 1)</span> @Model.Animales[i]</li>
-        }-->
+            <li><span class="animal-id">ID: @a.IdAnimal</span> @a.NombreAnimal</li>
+            <form asp-controller="Home" asp-action="DetailAnimal" method="post">
+                <input type="hidden" name="idAnimal" value="@a.IdAnimal" />
+                <button type="submit" class="btn btn-primary">Detalles</button>
+            </form>
+        }
     </ul>
+    <form asp-controller="Animal" asp-action="CreateAnimal" method="post">
+        <button type="submit" class="btn btn-light align-items-center">Crear animal</button>
+    </form>
 </div>

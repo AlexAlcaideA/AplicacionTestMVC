@@ -1,3 +1,4 @@
+using Animales.DAL;
 using AplicacionTestMVC.Models;
 using AplicacionTestMVC.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +17,10 @@ namespace AplicacionTestMVC.Controllers
 
         public IActionResult Index()
         {
+            AnimalDAL dal = new AnimalDAL();
+
             AnimalViewModel viewModel = new AnimalViewModel();
+            viewModel.Animales = dal.GetAll();
 
             return View(viewModel);
         }
@@ -24,6 +28,18 @@ namespace AplicacionTestMVC.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult DetailAnimal(int idAnimal)
+        {
+            return RedirectToAction("Index", "Animal", new { idAnimal = idAnimal });
+        }
+
+        [HttpPost]
+        public IActionResult CreateAnimal()
+        {
+            return RedirectToAction("ViewCreateAnimal", "Animal");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

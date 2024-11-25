@@ -1,0 +1,19 @@
+﻿@using AplicacionTestMVC.Models.ViewModels
+@model DetailAnimalViewModel
+
+<div class="text-center">
+    <h2>Crear nuevo animal:</h2>
+    <form asp-controller="Animal" asp-action="CreateAnimal" method="post">
+        <input type="text" name="NombreAnimal" value="@Model.AnimalDetail.NombreAnimal" />
+        <input type="text" name="Raza" value="@Model.AnimalDetail.Raza" />
+        <input type="date" name="FechaNacimiento" value="@Model.AnimalDetail.FechaNacimiento" />
+        <label for="AnimalDetail.TipoDeAnimal">Selecciona un tipo de animal:</label>
+        <select asp-for="AnimalDetail.RIdTipoAnimal" class="form-control" asp-items="@(new SelectList(Model.AnimalDetail.NombreAnimal, "TipoDescripcion"))">
+            <option value="">-- Selecciona un tipo de animal --</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Detalles</button>
+
+    </form>
+
+    <a href="@Url.Action("Index", "Home")">Volver a la lista</a>
+</div>
