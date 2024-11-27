@@ -1,0 +1,42 @@
+﻿@using AplicacionTestMVC.Models.ViewModels
+@model EditAnimalViewModel
+
+<div class="text-center">
+    <h2>Editar animal:</h2>
+    <form asp-controller="Animal" asp-action="UpdateEditAnimal" method="post">
+
+        <input asp-for="EditedAnimal.IdAnimal" type="hidden" />
+
+        <div class="form-group">
+            <label asp-for="EditedAnimal.NombreAnimal" class="form-label">Nombre animal:</label>
+            <input asp-for="EditedAnimal.NombreAnimal" class="form-control" />
+            <span asp-validation-for="EditedAnimal.NombreAnimal" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="EditedAnimal.Raza" class="form-label">Nombre raza:</label>
+            <input asp-for="EditedAnimal.Raza" class="form-control" />
+            <span asp-validation-for="EditedAnimal.Raza" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="EditedAnimal.FechaNacimiento" class="form-label">Fecha nacimiento:</label>
+            <input asp-for="EditedAnimal.FechaNacimiento" type="date" class="form-control" />
+            <span asp-validation-for="EditedAnimal.FechaNacimiento" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="EditedAnimal.RIdTipoAnimal" class="form-label">Selecciona un tipo de animal:</label>
+            <select asp-for="EditedAnimal.RIdTipoAnimal" class="form-control" asp-items="@(new SelectList(Model.AnimalTypes, "IdTipoAnimal", "TipoDescripcion"))">
+                <option value="">Seleccione un tipo</option>
+            </select>
+            <span asp-validation-for="EditedAnimal.RIdTipoAnimal" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Cambiar</button>
+        </div>
+    </form>
+
+    <a href="@Url.Action("Index", "Home")">Volver a la lista</a>
+</div>

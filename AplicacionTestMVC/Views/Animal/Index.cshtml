@@ -1,16 +1,29 @@
 ﻿@using AplicacionTestMVC.Models.ViewModels
 @model DetailAnimalViewModel
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@{
+    string erroreMessage = ViewBag.NoAnimal as string;
+}
 
-    <h2>Detalles animal:</h2>
-    <p>ID: @Model.AnimalDetail.IdAnimal</p>
-    <p>Nombre: @Model.AnimalDetail.NombreAnimal</p>
-    <p>Raza: @Model.AnimalDetail.Raza</p>
-    <p>Tipo: @Model.AnimalDetail.TipoDeAnimal</p>
-    <p>Fecha de nacimiento: @Model.AnimalDetail.FechaNacimiento?.ToString("d")</p>
+@if (!string.IsNullOrEmpty(erroreMessage))
+{
+    <div class="alert alert-danger" role="alert">
+        @erroreMessage
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <h1 class="display-4">Welcome</h1>
+        <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 
-    <a href="@Url.Action("Index", "Home")">Volver a la lista</a>
-</div>
+        <h2>Detalles animal:</h2>
+        <p>ID: @Model.AnimalDetail.IdAnimal</p>
+        <p>Nombre: @Model.AnimalDetail.NombreAnimal</p>
+        <p>Raza: @Model.AnimalDetail.Raza</p>
+        <p>Tipo: @Model.AnimalDetail.TipoDeAnimal.TipoDescripcion</p>
+        <p>Fecha de nacimiento: @Model.AnimalDetail.FechaNacimiento?.ToString("d")</p>
+
+        <a href="@Url.Action("Index", "Home")">Volver a la lista</a>
+    </div>
+}
