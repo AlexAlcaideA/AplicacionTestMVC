@@ -14,28 +14,29 @@
         @foreach (var a in Model.Animales)
         {
             <li>
-                <div class="d-flex justify-content-between align-items-center form-control">
-                    <!-- Mostrar información del animal -->
-                    <span class="animal-id">ID: @a.IdAnimal</span>
-                    @a.NombreAnimal
+                <div class="d-flex align-items-center">
+                    <!-- ID del Animal -->
+                    <span class="animal-id col-2">ID: @a.IdAnimal</span>
 
-                    <!-- Formulario para enviar el ID del animal -->
-                    <form asp-controller="Home" asp-action="DetailAnimal" method="post">
-                        <!-- Campo oculto para enviar el ID del animal -->
+                    <!-- Nombre del Animal -->
+                    <span class="col-4">@a.NombreAnimal</span>
+
+                    <!-- Botón de Detalles -->
+                    <form asp-controller="Home" asp-action="DetailAnimal" method="post" class="m-1 col-2">
                         <input type="hidden" name="idAnimal" value="@a.IdAnimal" />
-                        <button type="submit" class="btn btn-primary">Detalles</button>
+                        <button type="submit" class="btn btn-primary w-100">Detalles</button>
                     </form>
 
-                    <form asp-controller="Home" asp-action="EditAnimal" method="post">
-                        <!-- Campo oculto para enviar el ID del animal -->
+                    <!-- Botón de Editar -->
+                    <form asp-controller="Home" asp-action="EditAnimal" method="post" class="m-1 col-2">
                         <input type="hidden" name="idAnimal" value="@a.IdAnimal" />
-                        <button type="submit" class="btn btn-warning">Editar</button>
+                        <button type="submit" class="btn btn-warning w-100">Editar</button>
                     </form>
 
-                    <form asp-controller="Home" asp-action="EliminateAnimal" method="post">
-                        <!-- Campo oculto para enviar el ID del animal -->
+                    <!-- Botón de Eliminar -->
+                    <form asp-controller="Home" asp-action="EliminateAnimal" method="post" class="m-1 col-2">
                         <input type="hidden" name="idAnimal" value="@a.IdAnimal" />
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                        <button type="submit" class="btn btn-danger w-100">Eliminar</button>
                     </form>
                 </div>
             </li>

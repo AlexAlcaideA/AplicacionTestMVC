@@ -53,12 +53,13 @@ namespace AplicacionTestMVC.Controllers
         [HttpGet]
         public IActionResult EditAnimal()
         {
-            AnimalDAL dalAnimal = new AnimalDAL();
             TipoAnimalDAL dalTipoAnimal = new TipoAnimalDAL();
 
             string json = TempData["Animal"] as string;
 
             EditAnimalViewModel model = JsonConvert.DeserializeObject<EditAnimalViewModel>(json);
+
+            model.AnimalTypes = dalTipoAnimal.GetAll();
 
             return View(model);
         }
