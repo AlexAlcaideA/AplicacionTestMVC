@@ -1,9 +1,17 @@
 ﻿@using AplicacionTestMVC.Models.ViewModels
 @model CreateAnimalViewModel
 
+@if (!string.IsNullOrEmpty(ViewBag.Error))
+{
+    <div class="alert alert-error text-center" role="alert">
+        @ViewBag.Error
+    </div>
+}
+
 <div class="text-center">
+
     <h2>Crear nuevo animal:</h2>
-    <form asp-controller="Animal" asp-action="InsertCreateAnimal" method="post">
+    <form asp-controller="Animal" asp-action="CreateAnimal" method="post">
         <div class="form-group">
             <label asp-for="CreatedAnimal.NombreAnimal" class="form-label">Nombre animal:</label>
             <input asp-for="CreatedAnimal.NombreAnimal" class="form-control" />
@@ -37,3 +45,9 @@
 
     <a href="@Url.Action("Index", "Home")">Volver a la lista</a>
 </div>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

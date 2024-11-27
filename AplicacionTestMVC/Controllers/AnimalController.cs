@@ -24,8 +24,21 @@ namespace AplicacionTestMVC.Controllers
             return View(detailAnimal);
         }
 
-        public IActionResult CreateAnimal()
+        [HttpPost]
+        public IActionResult CreateAnimal(CreateAnimalViewModel animalToCreate)
         {
+            ModelState.Remove("CreatedAnimal.TipoDeAnimal.TipoDescripcion");
+
+
+            if (ModelState.IsValid)
+            {
+                AnimalDAL dalAnimal = new AnimalDAL();
+
+                dalAnimal.Insert(animalToCreate.CreatedAnimal);
+
+                return RedirectToAction("Index", "Home");
+            }
+
             TipoAnimalDAL dal = new TipoAnimalDAL();
 
             List<TipoAnimal> listaTipoAnimal = dal.GetAll();
@@ -33,21 +46,28 @@ namespace AplicacionTestMVC.Controllers
             CreateAnimalViewModel model = new CreateAnimalViewModel
             {
                 AnimalTypes = listaTipoAnimal
-                    .DistinctBy(x => x.IdTipoAnimal)
-                    .ToList()
             };
+
+            ViewBag.Error = "No se ha posido crear el animal.";
 
             return View(model);
         }
 
-        [HttpPost]
+        
         public IActionResult InsertCreateAnimal(CreateAnimalViewModel animalToCreate)
         {
-            AnimalDAL dal = new AnimalDAL();
+            if(ModelState.IsValid)
+            {
+                AnimalDAL dal = new AnimalDAL();
 
-            dal.Insert(animalToCreate.CreatedAnimal);
+                dal.Insert(animalToCreate.CreatedAnimal);
 
-            return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
+            }
+
+            ViewBag.Error = "No se ha posido crear el animal.";
+
+            return RedirectToAction("CreateAnimal");
         }
 
         [HttpGet]
